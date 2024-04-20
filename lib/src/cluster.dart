@@ -1,13 +1,13 @@
 import 'package:google_maps_cluster_manager/google_maps_cluster_manager.dart';
 import 'package:google_maps_flutter_platform_interface/google_maps_flutter_platform_interface.dart';
 
-class Cluster<T extends ClusterItem> {
+class GoogleCluster<T extends GoogleClusterItem> {
   final LatLng location;
   final Iterable<T> items;
 
-  Cluster(this.items, this.location);
+  GoogleCluster(this.items, this.location);
 
-  Cluster.fromItems(Iterable<T> items)
+  GoogleCluster.fromItems(Iterable<T> items)
       : this.items = items,
         this.location = LatLng(
             items.fold<double>(0.0, (p, c) => p + c.location.latitude) /
@@ -16,7 +16,7 @@ class Cluster<T extends ClusterItem> {
                 items.length);
 
   //location becomes weighted avarage lat lon
-  Cluster.fromClusters(Cluster<T> cluster1, Cluster<T> cluster2)
+  GoogleCluster.fromClusters(GoogleCluster<T> cluster1, GoogleCluster<T> cluster2)
       : this.items = cluster1.items.toSet()..addAll(cluster2.items.toSet()),
         this.location = LatLng(
             (cluster1.location.latitude * cluster1.count +
@@ -42,9 +42,9 @@ class Cluster<T extends ClusterItem> {
 
   @override
   String toString() {
-    return 'Cluster of $count $T (${location.latitude}, ${location.longitude})';
+    return 'GoogleCluster of $count $T (${location.latitude}, ${location.longitude})';
   }
 
-  bool operator ==(o) => o is Cluster && items == o.items;
+  bool operator ==(o) => o is GoogleCluster && items == o.items;
   int get hashCode => items.hashCode;
 }

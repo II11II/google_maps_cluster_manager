@@ -29,7 +29,7 @@ class MapSample extends StatefulWidget {
 }
 
 class MapSampleState extends State<MapSample> {
-  late ClusterManager _manager;
+  late GoogleClusterManager _manager;
 
   Completer<GoogleMapController> _controller = Completer();
 
@@ -72,8 +72,8 @@ class MapSampleState extends State<MapSample> {
     super.initState();
   }
 
-  ClusterManager _initClusterManager() {
-    return ClusterManager<Place>(items, _updateMarkers,
+  GoogleClusterManager _initClusterManager() {
+    return GoogleClusterManager<Place>(items, _updateMarkers,
         markerBuilder: _markerBuilder);
   }
 
@@ -111,7 +111,7 @@ class MapSampleState extends State<MapSample> {
     );
   }
 
-  Future<Marker> Function(Cluster<Place>) get _markerBuilder =>
+  Future<Marker> Function(GoogleCluster<Place>) get _markerBuilder =>
       (cluster) async {
         return Marker(
           markerId: MarkerId(cluster.getId()),
